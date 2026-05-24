@@ -1,0 +1,318 @@
+---
+import { Picture } from "astro:assets";
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteNav from "../components/SiteNav.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import heroImage from "../assets/hero-wedding-placeholder.png";
+import polaroidCouples from "../assets/polaroid-couples-placeholder.png";
+import polaroidFamily from "../assets/polaroid-family-placeholder.png";
+import polaroidSolo from "../assets/polaroid-solo-placeholder.png";
+import polaroidWedding from "../assets/polaroid-wedding-placeholder.png";
+import serviceCouples from "../assets/service-couples-placeholder.png";
+import serviceFamily from "../assets/service-family-placeholder.png";
+import serviceWedding from "../assets/service-wedding-placeholder.png";
+
+const portfolioItems = [
+  {
+    names: "Maya & Daniel",
+    place: "Graydon Hall Manor",
+    image: polaroidWedding,
+    alt: "A warm wedding celebration placeholder photograph."
+  },
+  {
+    names: "Ari & Thomas",
+    place: "Toronto Island",
+    image: polaroidCouples,
+    alt: "A romantic couples session placeholder photograph."
+  },
+  {
+    names: "Leah",
+    place: "Trinity Bellwoods",
+    image: polaroidSolo,
+    alt: "A soft solo portrait placeholder photograph."
+  },
+  {
+    names: "The Chens",
+    place: "High Park",
+    image: polaroidFamily,
+    alt: "A relaxed family session placeholder photograph."
+  },
+  {
+    names: "Nora & Sam",
+    place: "Distillery District",
+    image: polaroidCouples,
+    alt: "A candid couples placeholder photograph."
+  },
+  {
+    names: "Isla",
+    place: "The Annex",
+    image: polaroidSolo,
+    alt: "An editorial solo portrait placeholder photograph."
+  },
+  {
+    names: "Priya & Alex",
+    place: "Evergreen Brick Works",
+    image: polaroidWedding,
+    alt: "A romantic wedding portrait placeholder photograph."
+  },
+  {
+    names: "The Martins",
+    place: "Scarborough Bluffs",
+    image: polaroidFamily,
+    alt: "A family lifestyle session placeholder photograph."
+  },
+  {
+    names: "Elena & Chris",
+    place: "Osgoode Hall",
+    image: polaroidWedding,
+    alt: "An elegant wedding session placeholder photograph."
+  }
+];
+
+const testimonials = [
+  {
+    name: "Maya & Daniel",
+    image: polaroidWedding,
+    alt: "A warm wedding celebration placeholder photograph.",
+    quote:
+      "Sally made us feel completely present. The photos feel honest, emotional, and exactly like the day we remember."
+  },
+  {
+    name: "Ari & Thomas",
+    image: polaroidCouples,
+    alt: "A romantic couples session placeholder photograph.",
+    quote:
+      "She caught all the tiny in-between moments we never would have thought to ask for. Every frame feels personal."
+  },
+  {
+    name: "Leah",
+    image: polaroidSolo,
+    alt: "A soft solo portrait placeholder photograph.",
+    quote:
+      "I usually feel awkward in front of a camera, but Sally created such a calm space. The portraits feel like me."
+  },
+  {
+    name: "The Chens",
+    image: polaroidFamily,
+    alt: "A relaxed family session placeholder photograph.",
+    quote:
+      "Our gallery feels full of life. Nothing looks forced, and somehow she captured everyone's real personality."
+  }
+];
+
+const services = [
+  {
+    title: "Wedding",
+    description:
+      "This package includes up to 12 hours of coverage, 1 photographer, and an online gallery with 1200+ high-resolution edited images available for download and sharing. It's perfect for capturing the ceremony, key moments of the reception, and some pre-ceremony preparations.",
+    price: "From $750-$1,500",
+    image: serviceWedding,
+    alt: "A newly married couple sharing a warm wedding portrait moment."
+  },
+  {
+    title: "Couples",
+    description:
+      "The most requested package, it offers up to 2 hours of coverage with 1 photographer, such as an engagement session, bridal shower or pre-wedding session. You'll receive an online gallery with 200+ edited images, a 10x10 luxury leather album with 20 pages showcasing your favourite photos from the photo session.",
+    price: "From $150-$300",
+    image: serviceCouples,
+    alt: "A couple photographed together near the Toronto waterfront."
+  },
+  {
+    title: "Family",
+    description:
+      "The package covers up to 3 hours of coverage with 1 photographer, perfect for family photoshoots, baby showers and maternity photos. You'll get an online gallery with 300+ edited images, a 12x12 premium leather album with 30 pages showcasing your favourite photos form the photo session.",
+    price: "From $250-$500",
+    image: serviceFamily,
+    alt: "A family sharing a joyful outdoor portrait moment."
+  }
+];
+---
+
+<BaseLayout>
+  <SiteNav />
+
+  <main>
+    <section class="hero-scroll" data-hero-scroll aria-label="Homepage hero image and introduction">
+      <div class="hero-sticky">
+        <section class="intro" aria-labelledby="homepage-title" data-hero-copy>
+          <p class="intro-kicker" data-hero-copy-top>based in Toronto, available in the GTA</p>
+          <h1 id="homepage-title" class="intro-heading">
+            <span class="intro-heading__line intro-heading__line--top" data-hero-title-top>
+              Authentic, Heartfelt
+            </span>
+            <span class="intro-heading__line intro-heading__line--bottom" data-hero-title-bottom>
+              Wedding Photography
+            </span>
+          </h1>
+          <p class="intro-subtitle" data-hero-copy-bottom>Capturing moments since 2017</p>
+        </section>
+
+        <div class="hero-frame" data-hero-frame>
+          <Picture
+            src={heroImage}
+            formats={["avif", "webp"]}
+            widths={[640, 960, 1280, 1600, 2200]}
+            sizes="100vw"
+            alt="A joyful black and white wedding moment shared by a newly married couple and loved ones."
+            loading="eager"
+          />
+        </div>
+        <section class="introduction" id="introduction" data-introduction aria-label="Introduction">
+          <p
+            class="introduction-copy introduction-copy--base"
+            data-introduction-copy
+            aria-label="Photography for moments. You'll relive forever."
+          >
+            <span class="introduction-copy__slots" aria-hidden="true">
+              <span class="introduction-copy__slot" data-intro-word-slot>
+                <span class="introduction-copy__track" data-intro-word-track>
+                  <span class="introduction-copy__word">Photography</span>
+                  <span class="introduction-copy__word">You'll</span>
+                </span>
+              </span>
+              <span class="introduction-copy__slot" data-intro-word-slot>
+                <span class="introduction-copy__track" data-intro-word-track>
+                  <span class="introduction-copy__word">for</span>
+                  <span class="introduction-copy__word">relive</span>
+                </span>
+              </span>
+              <span class="introduction-copy__slot" data-intro-word-slot>
+                <span class="introduction-copy__track" data-intro-word-track>
+                  <span class="introduction-copy__word">moments</span>
+                  <span class="introduction-copy__word introduction-copy__word--italic">forever</span>
+                </span>
+              </span>
+            </span>
+          </p>
+        </section>
+      </div>
+    </section>
+
+    <section class="photographer-intro" aria-label="Photographer introduction">
+      <p class="photographer-intro__text photographer-intro__text--left">
+        Captured by Sally Gao, Lifestyle Photographer
+      </p>
+      <div class="photographer-intro__portrait">
+        <Picture
+          src={polaroidSolo}
+          formats={["avif", "webp"]}
+          widths={[320, 480, 640, 840]}
+          sizes="(max-width: 560px) 72vw, 30vw"
+          alt="Portrait-style placeholder photograph for Sally Gao."
+          loading="lazy"
+        />
+      </div>
+      <p class="photographer-intro__text photographer-intro__text--right">
+        Based in Toronto, Available in the GTA
+      </p>
+    </section>
+
+    <section class="portfolio-showcase" aria-label="Selected portfolio photographs">
+      {
+        portfolioItems.map((item, index) => (
+          <figure class={`portfolio-tile portfolio-tile--${index + 1}`} tabindex="0">
+            <Picture
+              src={item.image}
+              formats={["avif", "webp"]}
+              widths={[360, 540, 720, 960]}
+              sizes="(max-width: 560px) 50vw, 33.333vw"
+              alt={item.alt}
+              loading="lazy"
+            />
+            <figcaption class="portfolio-tile__caption">
+              <span class="portfolio-tile__names">{item.names}</span>
+              <span class="portfolio-tile__place">{item.place}</span>
+            </figcaption>
+          </figure>
+        ))
+      }
+    </section>
+
+    <section class="testimonials" aria-labelledby="testimonials-title">
+      <h2 class="testimonials__title" id="testimonials-title">Testimonials</h2>
+      <div class="testimonial-row">
+        {
+          testimonials.map((testimonial, index) => (
+            <button
+              class="testimonial-card"
+              type="button"
+              data-testimonial-card
+              aria-label={`Show testimonial from ${testimonial.name}`}
+              style={`--card-rotate: ${[-7, 5, -3, 7][index]}deg; --card-offset-y: ${[0, 18, 8, 22][index]}px;`}
+            >
+              <span class="testimonial-card__inner" data-testimonial-inner>
+                <span class="testimonial-card__face testimonial-card__face--front">
+                  <span class="testimonial-card__image">
+                    <Picture
+                      src={testimonial.image}
+                      formats={["avif", "webp"]}
+                      widths={[260, 380, 520, 680]}
+                      sizes="(max-width: 560px) 72vw, (max-width: 960px) 42vw, 22vw"
+                      alt={testimonial.alt}
+                      loading="lazy"
+                    />
+                  </span>
+                  <span class="testimonial-card__name">{testimonial.name}</span>
+                </span>
+                <span class="testimonial-card__face testimonial-card__face--back">
+                  <span class="testimonial-card__quote">&ldquo;{testimonial.quote}&rdquo;</span>
+                </span>
+              </span>
+            </button>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="services" aria-label="Services offered">
+      <div class="services__copy-track">
+        {
+          services.map((service) => (
+            <article class="service-copy" data-service-copy>
+              <div class="service-copy__mobile-media">
+                <Picture
+                  src={service.image}
+                  formats={["avif", "webp"]}
+                  widths={[480, 720, 960, 1200]}
+                  sizes="100vw"
+                  alt={service.alt}
+                  loading="lazy"
+                />
+              </div>
+              <div class="service-copy__body">
+                <h2>{service.title}</h2>
+                <p>{service.description}</p>
+                <p class="service-copy__price">{service.price}</p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+
+      <div class="services__media-track">
+        {
+          services.map((service) => (
+            <figure class="service-media" data-service-media>
+              <Picture
+                src={service.image}
+                formats={["avif", "webp"]}
+                widths={[480, 720, 960, 1200, 1440]}
+                sizes="(max-width: 700px) 100vw, 44vw"
+                alt={service.alt}
+                loading="lazy"
+              />
+            </figure>
+          ))
+        }
+      </div>
+    </section>
+  </main>
+
+  <SiteFooter animated />
+
+  <script>
+    import "../scripts/homepage-motion";
+    import "../scripts/services-snap";
+    import "../scripts/testimonials";
+  </script>
+</BaseLayout>

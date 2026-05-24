@@ -1,0 +1,24 @@
+---
+import AlbumTileGrid from "../../components/AlbumTileGrid.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import SiteNav from "../../components/SiteNav.astro";
+import { clientAlbums } from "../../data/albums";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Client Gallery | Sally Gao Photography"
+  description="Client galleries for Sally Gao Photography sessions in Toronto and the GTA."
+>
+  <SiteNav />
+
+  <main class="client-gallery-page">
+    <section class="client-gallery-heading" aria-labelledby="client-gallery-title">
+      <h1 id="client-gallery-title">Albums</h1>
+    </section>
+
+    <AlbumTileGrid albums={clientAlbums} />
+  </main>
+
+  <SiteFooter animated />
+</BaseLayout>

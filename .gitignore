@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.astro/
+.astro-dev.log
+.astro-dev.out.log
+.astro-dev.err.log
+.verification/
+.agents/
+.misc/

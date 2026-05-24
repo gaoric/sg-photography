@@ -1,0 +1,33 @@
+---
+import { Picture } from "astro:assets";
+import type { ClientAlbum } from "../data/albums";
+
+interface Props {
+  albums: ClientAlbum[];
+  columns?: 3 | 4;
+}
+
+const { albums, columns = 3 } = Astro.props;
+const gridClass = columns === 4 ? "client-gallery-grid client-gallery-grid--four" : "client-gallery-grid";
+---
+
+<section class={gridClass} aria-label="Client albums">
+  {
+    albums.map((album, index) => (
+      <a class={`client-gallery-tile client-gallery-tile--${index + 1}`} href={`/client-gallery/${album.slug}/`}>
+        <Picture
+          src={album.cover}
+          formats={["avif", "webp"]}
+          widths={[360, 540, 720, 960]}
+          sizes={columns === 4 ? "(max-width: 860px) 50vw, 25vw" : "(max-width: 640px) 50vw, 33.333vw"}
+          alt={album.coverAlt}
+          loading={index < columns ? "eager" : "lazy"}
+        />
+        <span class="client-gallery-tile__caption" aria-hidden="true">
+          <span>{album.names}</span>
+          <span>{album.place}</span>
+        </span>
+      </a>
+    ))
+  }
+</section>

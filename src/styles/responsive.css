@@ -1,0 +1,276 @@
+/* Large desktop adjustments */
+@media (width >= 1440px) {
+  .intro h1 {
+    font-size: 7.5rem;
+  }
+
+  .footer-quote {
+    font-size: 5.25rem;
+  }
+}
+
+/* Tablet and small desktop adjustments */
+@media (width <= 860px) {
+  .logo-link {
+    top: 18px;
+    left: 24px;
+    width: 58px;
+    height: 58px;
+  }
+
+  .nav-links {
+    top: 18px;
+    right: 24px;
+    gap: 18px;
+    padding-top: 12px;
+    font-size: 0.68rem;
+  }
+
+  .intro {
+    min-height: 100svh;
+    padding: 96px 24px;
+  }
+
+  .intro h1 {
+    max-width: 620px;
+    font-size: 4.6rem;
+    line-height: 1;
+  }
+
+  .hero-frame {
+    width: calc(100vw - 48px);
+    height: 66svh;
+  }
+
+  .footer-content {
+    max-width: none;
+    padding: 104px 30px 42px;
+  }
+
+  .footer-quote {
+    max-width: 600px;
+    font-size: 3.25rem;
+    line-height: 1.02;
+  }
+
+  .introduction-copy {
+    max-width: 680px;
+    font-size: 3.75rem;
+    line-height: 1.04;
+  }
+
+  .photographer-intro {
+    grid-template-columns: minmax(0, 1fr) minmax(190px, 34vw) minmax(0, 1fr);
+    gap: 24px;
+    padding-inline: 30px;
+  }
+
+  .photographer-intro__text {
+    max-width: 12rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+  }
+
+  .portfolio-tile__caption {
+    left: 18px;
+    bottom: 18px;
+    max-width: calc(100% - 36px);
+  }
+
+  .portfolio-tile__names {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+  }
+
+  .portfolio-tile__place {
+    font-size: 1.22rem;
+  }
+
+  .testimonials {
+    padding-top: 84px;
+  }
+
+  .testimonial-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: min(92vw, 820px);
+  }
+
+  .testimonial-card {
+    width: min(100%, 356px);
+  }
+}
+
+/* Mobile layout */
+@media (width <= 560px) {
+  .logo-link {
+    top: 16px;
+    left: 18px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 20px;
+    right: max(18px, calc(100vw - 372px));
+    grid-template-columns: 1fr;
+    display: grid;
+    width: max-content;
+    max-width: calc(100vw - 96px);
+    justify-items: end;
+    gap: 8px;
+    padding-top: 5px;
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    text-align: right;
+  }
+
+  .nav-links a {
+    white-space: nowrap;
+  }
+
+  .intro {
+    min-height: 100svh;
+    padding: 88px 18px;
+  }
+
+  .intro-kicker,
+  .intro-subtitle,
+  .footer-kicker {
+    font-size: 0.68rem;
+  }
+
+  .intro h1 {
+    max-width: 17.5rem;
+    font-size: 2.76rem;
+    line-height: 1.04;
+  }
+
+  .intro-kicker {
+    margin-bottom: 18px;
+  }
+
+  .intro-subtitle {
+    margin-top: 18px;
+  }
+
+  .hero-scroll {
+    height: 292svh;
+  }
+
+  .footer-content {
+    gap: 22px;
+    padding: 96px 22px 34px;
+  }
+
+  .introduction {
+    padding: 88px 22px;
+  }
+
+  .introduction-copy {
+    max-width: 20rem;
+    font-size: 2.48rem;
+    line-height: 1.08;
+  }
+
+  .photographer-intro {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 24px;
+    min-height: auto;
+    padding: 86px 22px;
+    text-align: center;
+  }
+
+  .photographer-intro__portrait {
+    order: 2;
+    width: min(72vw, 300px);
+  }
+
+  .photographer-intro__text {
+    max-width: 18rem;
+    font-size: 0.7rem;
+    line-height: 1.5;
+  }
+
+  .photographer-intro__text--left {
+    order: 1;
+  }
+
+  .photographer-intro__text--right {
+    order: 3;
+  }
+
+  .photographer-intro__text--left,
+  .photographer-intro__text--right {
+    justify-self: center;
+    text-align: center;
+  }
+
+  .portfolio-showcase {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: none;
+    grid-auto-rows: auto;
+  }
+
+  .portfolio-tile--9 {
+    display: none;
+  }
+
+  .portfolio-tile__caption {
+    left: 12px;
+    bottom: 12px;
+    gap: 2px;
+    max-width: calc(100% - 24px);
+  }
+
+  .portfolio-tile__names {
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+  }
+
+  .portfolio-tile__place {
+    font-size: 0.92rem;
+    line-height: 1.02;
+  }
+
+  .testimonials {
+    padding: 72px 18px calc(112px + 12svh);
+  }
+
+  .testimonials__title {
+    font-size: clamp(2.4rem, 13vw, 3.4rem);
+  }
+
+  .testimonial-row {
+    width: 100%;
+    grid-template-columns: 1fr;
+  }
+
+  .testimonial-card {
+    width: min(82vw, 320px);
+  }
+
+  .testimonial-card__name {
+    font-size: 2.32rem;
+  }
+
+  .testimonial-card__quote {
+    font-size: 1.02rem;
+    line-height: 1.46;
+  }
+
+  .testimonial-card__face--back {
+    padding: 30px 24px;
+  }
+
+  .footer-quote {
+    max-width: 18rem;
+    font-size: 2.72rem;
+    line-height: 1.04;
+  }
+
+  .footer-contact {
+    font-size: 0.92rem;
+  }
+}

@@ -1,0 +1,37 @@
+---
+interface Props {
+  animated?: boolean;
+}
+
+const { animated = false } = Astro.props;
+const footerClass = animated ? "site-footer" : "site-footer site-footer--static";
+---
+
+<footer class={footerClass} data-footer={animated ? true : undefined}>
+  <div class="footer-reveal" data-footer-reveal={animated ? true : undefined}>
+    <div class="footer-content" data-footer-content={animated ? true : undefined}>
+      <p class="footer-kicker">Sally Gao Photography</p>
+      <p class="footer-quote">LET'S CREATE SOMETHING TIMELESS <em>together</em>.</p>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="/about/">About</a>
+        <a href="/client-gallery/">Client Gallery</a>
+        <a href="/contact/">Contact</a>
+      </nav>
+      <div class="footer-contact">
+        <a href="mailto:hello@sallygaophotography.com">hello@sallygaophotography.com</a>
+        <a href="https://www.instagram.com/sallygaophotography/">@sallygaophotography</a>
+      </div>
+      <p class="footer-copyright">
+        &copy; {new Date().getFullYear()} Sally Gao Photography. All rights reserved.
+      </p>
+    </div>
+  </div>
+</footer>
+
+{
+  animated && (
+    <script>
+      import "../scripts/footer-motion";
+    </script>
+  )
+}

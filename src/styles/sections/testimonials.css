@@ -1,0 +1,120 @@
+/* Testimonials */
+.testimonials {
+  display: grid;
+  gap: clamp(34px, 4vw, 52px);
+  padding: calc(120px + 12svh) 24px calc(156px + 12svh);
+  background: var(--ivory);
+  justify-items: center;
+}
+
+.testimonials__title {
+  margin: 0;
+  color: var(--charcoal);
+  font-family: var(--font-display);
+  font-size: clamp(2.9rem, 5.4vw, 5rem);
+  font-weight: 560;
+  letter-spacing: -0.04em;
+  line-height: 0.94;
+  text-transform: uppercase;
+}
+
+.testimonial-row {
+  width: min(1320px, 100%);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(16px, 1.8vw, 24px);
+  align-items: start;
+}
+
+.testimonial-card {
+  --card-rotate: 0deg;
+  --card-offset-y: 0px;
+  --testimonial-frame: #e7e7e5;
+  position: relative;
+  display: block;
+  width: min(100%, clamp(268px, 22vw, 336px));
+  aspect-ratio: 88 / 107;
+  justify-self: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+  transform-style: preserve-3d;
+  perspective: 1400px;
+}
+
+.testimonial-card:focus-visible {
+  outline: 2px solid var(--brass);
+  outline-offset: 14px;
+}
+
+.testimonial-card__inner {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform-origin: center;
+}
+
+.testimonial-card__face {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  backface-visibility: hidden;
+  border: 1px solid rgb(18 17 16 / 0.12);
+  background: var(--testimonial-frame);
+}
+
+.testimonial-card__face--front {
+  grid-template-rows: auto 1fr;
+  padding: clamp(12px, 0.9vw, 16px) clamp(12px, 0.9vw, 16px) 0;
+}
+
+.testimonial-card__face--back {
+  align-content: center;
+  justify-items: center;
+  padding: clamp(30px, 2.6vw, 40px);
+  transform: rotateY(180deg);
+}
+
+.testimonial-card__image {
+  display: block;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: var(--ivory-deep);
+}
+
+.testimonial-card__image picture,
+.testimonial-card__image img {
+  width: 100%;
+  height: 100%;
+}
+
+.testimonial-card__image img {
+  object-fit: cover;
+}
+
+.testimonial-card__quote {
+  color: var(--charcoal);
+  font-family: var(--font-sans);
+  font-size: clamp(1.02rem, 1.16vw, 1.14rem);
+  font-weight: 420;
+  letter-spacing: 0;
+  line-height: 1.5;
+  margin: 0;
+  text-align: center;
+}
+
+.testimonial-card__name {
+  place-self: center;
+  color: var(--charcoal);
+  font-family: var(--font-hand);
+  font-size: clamp(2rem, 2.1vw, 2.5rem);
+  font-weight: 520;
+  letter-spacing: 0;
+  line-height: 0.9;
+  text-align: center;
+}

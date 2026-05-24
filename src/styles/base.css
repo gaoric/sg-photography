@@ -1,0 +1,48 @@
+/* Global tokens and base document behavior */
+:root {
+  color-scheme: light;
+  --ivory: #f9f8f5; /* #FAF8F1 */
+  --ivory-deep: #ebe7e1;
+  --charcoal: #121110;
+  --charcoal-soft: #3e3934;
+  --brass: #a68966;
+  --footer-ink: #f7f1e8;
+  --footer-muted: #d8cab9;
+  --font-display: "Bodoni Moda Variable", "Bodoni 72", Didot, serif;
+  --font-display-alt: "Playfair Display Variable", "Garamond", "Palatino Linotype", serif;
+  --font-hand: "Shadows Into Light", "Caveat Variable", "Segoe Print", "Bradley Hand", cursive;
+  --font-cursive: "Allura", "Alex Brush", "Parisienne", "Brush Script MT", cursive;
+  --font-sans: "Inter Tight Variable", "Hanken Grotesk", Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--ivory);
+  color: var(--charcoal);
+  font-family: var(--font-sans);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--ivory);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+::selection {
+  background: var(--charcoal);
+  color: var(--ivory);
+}

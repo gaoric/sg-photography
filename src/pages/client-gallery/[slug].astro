@@ -1,0 +1,111 @@
+---
+import { Picture } from "astro:assets";
+import AlbumTileGrid from "../../components/AlbumTileGrid.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import SiteNav from "../../components/SiteNav.astro";
+import { clientAlbums } from "../../data/albums";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+  return clientAlbums.map((album) => ({
+    params: { slug: album.slug },
+    props: { album }
+  }));
+}
+
+const { album } = Astro.props;
+const moreAlbums = clientAlbums.filter((clientAlbum) => clientAlbum.slug !== album.slug).slice(0, 8);
+---
+
+<BaseLayout
+  title={`${album.names} | Sally Gao Photography`}
+  description={`${album.service} gallery for ${album.names}, photographed at ${album.place}.`}
+>
+  <SiteNav />
+
+  <main class="album-page">
+    <section class="album-cover" data-album-cover aria-labelledby="album-title">
+      <div class="album-cover__preview" data-album-cover-preview aria-hidden="true">
+        <Picture
+          src={album.photos[0].image}
+          formats={["avif", "webp"]}
+          widths={[720, 960, 1280, 1600]}
+          sizes="100vw"
+          alt=""
+          loading="eager"
+        />
+      </div>
+      <div class="album-cover__panel album-cover__panel--top" data-album-cover-top aria-hidden="true">
+        <div class="album-cover__content album-cover__content--visual">
+          <p class="album-cover__service">{album.service}</p>
+          <p class="album-cover__title">{album.names}</p>
+          <p class="album-cover__place">{album.place}</p>
+        </div>
+      </div>
+      <div class="album-cover__panel album-cover__panel--bottom" data-album-cover-bottom aria-hidden="true">
+        <div class="album-cover__content album-cover__content--visual">
+          <p class="album-cover__service">{album.service}</p>
+          <p class="album-cover__title">{album.names}</p>
+          <p class="album-cover__place">{album.place}</p>
+        </div>
+      </div>
+      <div class="album-cover__content album-cover__content--semantic">
+        <p class="album-cover__service">{album.service}</p>
+        <h1 id="album-title">{album.names}</h1>
+        <p class="album-cover__place">{album.place}</p>
+      </div>
+    </section>
+
+    <section class="album-photo-grid" data-album-grid aria-label={`${album.names} album photos`}>
+      {
+        album.photos.map((photo, index) => (
+          <button
+            class="album-photo"
+            type="button"
+            data-album-photo
+            data-photo-index={index}
+            data-full-src={photo.image.src}
+            data-full-alt={photo.alt}
+            aria-label={`Open photo ${index + 1} from ${album.names}`}
+          >
+            <Picture
+              src={photo.image}
+              formats={["avif", "webp"]}
+              widths={[360, 540, 720, 960, 1280]}
+              sizes="(max-width: 640px) 100vw, 33.333vw"
+              alt={photo.alt}
+              loading={index < 3 ? "eager" : "lazy"}
+            />
+          </button>
+        ))
+      }
+    </section>
+
+    <section class="more-albums" aria-labelledby="more-albums-title">
+      <h2 id="more-albums-title">More Albums</h2>
+      <AlbumTileGrid albums={moreAlbums} columns={4} />
+    </section>
+  </main>
+
+  <div class="album-slideshow" data-album-slideshow aria-hidden="true">
+    <button class="album-slideshow__close" type="button" data-slideshow-close aria-label="Close slideshow">
+      X
+    </button>
+    <button class="album-slideshow__nav album-slideshow__nav--prev" type="button" data-slideshow-prev aria-label="Previous photo">
+      <span aria-hidden="true">&lt;</span>
+    </button>
+    <figure class="album-slideshow__figure" data-slideshow-figure>
+      <img data-slideshow-image src="" alt="" />
+    </figure>
+    <button class="album-slideshow__nav album-slideshow__nav--next" type="button" data-slideshow-next aria-label="Next photo">
+      <span aria-hidden="true">&gt;</span>
+    </button>
+  </div>
+
+  <SiteFooter animated />
+
+  <script>
+    import "../../scripts/album-cover-motion";
+    import "../../scripts/album-slideshow";
+  </script>
+</BaseLayout>

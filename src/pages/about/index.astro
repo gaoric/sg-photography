@@ -1,0 +1,63 @@
+---
+import { Picture } from "astro:assets";
+import SiteFooter from "../../components/SiteFooter.astro";
+import SiteNav from "../../components/SiteNav.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import portraitImage from "../../assets/polaroid-solo-placeholder.png";
+---
+
+<BaseLayout
+  title="About | Sally Gao Photography"
+  description="Meet Sally Gao, a Toronto wedding photographer with a natural, soft, and vibrant approach."
+>
+  <script is:inline>
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      document.documentElement.classList.add("about-motion-enabled");
+    }
+  </script>
+
+  <SiteNav />
+
+  <main class="about-page">
+    <section class="about-hero" aria-labelledby="about-title">
+      <div class="about-hero__portrait">
+        <Picture
+          src={portraitImage}
+          formats={["avif", "webp"]}
+          widths={[420, 620, 840, 1080]}
+          sizes="(max-width: 780px) 84vw, 34vw"
+          alt="Portrait-style placeholder photograph for Sally Gao."
+          loading="eager"
+        />
+      </div>
+
+      <div class="about-hero__content">
+        <h1 id="about-title">
+          <span data-about-heading-line>Hello,</span>
+          <span data-about-heading-line>I'm Sally</span>
+        </h1>
+
+        <p data-about-body>
+          I'm a wedding photographer based in Toronto, Ontario. I have over 10 years of experience in wedding,
+          engagement, family, events and portrait photography. Let us help you capture your precious moments to keep
+          for generations to come!
+        </p>
+
+        <h2 data-about-heading-line>My Approach</h2>
+
+        <p data-about-body>
+          I have a natural, soft and vibrant photography style. I like whimsical and ethereal wedding and engagement
+          styles but I'm open to different styles to fit your needs! I also do outdoor portrait photography and indoor
+          studio photography for individuals, couples and families. And I can do event photography for bridal showers,
+          baby showers, proposals, corporate parties, etc.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <SiteFooter animated />
+
+  <script>
+    import "../../scripts/about-motion";
+  </script>
+</BaseLayout>
