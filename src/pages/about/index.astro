@@ -3,7 +3,7 @@ import { Picture } from "astro:assets";
 import SiteFooter from "../../components/SiteFooter.astro";
 import SiteNav from "../../components/SiteNav.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import portraitImage from "../../assets/polaroid-solo-placeholder.png";
+import portraitImage from "../../assets/about/profile.jpeg";
 ---
 
 <BaseLayout
@@ -26,7 +26,7 @@ import portraitImage from "../../assets/polaroid-solo-placeholder.png";
           formats={["avif", "webp"]}
           widths={[420, 620, 840, 1080]}
           sizes="(max-width: 780px) 84vw, 34vw"
-          alt="Portrait-style placeholder photograph for Sally Gao."
+          alt="Portrait of Sally Gao."
           loading="eager"
         />
       </div>

@@ -37,11 +37,6 @@
     line-height: 1;
   }
 
-  .hero-frame {
-    width: calc(100vw - 48px);
-    height: 66svh;
-  }
-
   .footer-content {
     max-width: none;
     padding: 104px 30px 42px;
@@ -155,7 +150,7 @@
   }
 
   .hero-scroll {
-    height: 292svh;
+    height: 360svh;
   }
 
   .footer-content {

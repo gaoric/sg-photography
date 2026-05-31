@@ -2,101 +2,48 @@
 import { Picture } from "astro:assets";
 import SiteFooter from "../components/SiteFooter.astro";
 import SiteNav from "../components/SiteNav.astro";
+import { portfolioPreviewItems } from "../data/albums";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import heroImage from "../assets/hero-wedding-placeholder.png";
-import polaroidCouples from "../assets/polaroid-couples-placeholder.png";
-import polaroidFamily from "../assets/polaroid-family-placeholder.png";
-import polaroidSolo from "../assets/polaroid-solo-placeholder.png";
-import polaroidWedding from "../assets/polaroid-wedding-placeholder.png";
-import serviceCouples from "../assets/service-couples-placeholder.png";
-import serviceFamily from "../assets/service-family-placeholder.png";
-import serviceWedding from "../assets/service-wedding-placeholder.png";
+import heroImage from "../assets/home/hero/hero.jpeg";
+import photographerImage from "../assets/home/photographer/photographer.jpeg";
+import serviceCouples from "../assets/home/services/couples.jpeg";
+import serviceFamily from "../assets/home/services/family.jpeg";
+import serviceWedding from "../assets/home/services/wedding.jpeg";
+import testimonialCamilleKostiantyn from "../assets/home/testimonials/camille&kostiantyn.jpeg";
+import testimonialEmilyScott from "../assets/home/testimonials/emily&scott.jpeg";
+import testimonialJosesSusanna from "../assets/home/testimonials/joses&susanna.jpeg";
+import testimonialLois from "../assets/home/testimonials/lois.jpg";
 
-const portfolioItems = [
-  {
-    names: "Maya & Daniel",
-    place: "Graydon Hall Manor",
-    image: polaroidWedding,
-    alt: "A warm wedding celebration placeholder photograph."
-  },
-  {
-    names: "Ari & Thomas",
-    place: "Toronto Island",
-    image: polaroidCouples,
-    alt: "A romantic couples session placeholder photograph."
-  },
-  {
-    names: "Leah",
-    place: "Trinity Bellwoods",
-    image: polaroidSolo,
-    alt: "A soft solo portrait placeholder photograph."
-  },
-  {
-    names: "The Chens",
-    place: "High Park",
-    image: polaroidFamily,
-    alt: "A relaxed family session placeholder photograph."
-  },
-  {
-    names: "Nora & Sam",
-    place: "Distillery District",
-    image: polaroidCouples,
-    alt: "A candid couples placeholder photograph."
-  },
-  {
-    names: "Isla",
-    place: "The Annex",
-    image: polaroidSolo,
-    alt: "An editorial solo portrait placeholder photograph."
-  },
-  {
-    names: "Priya & Alex",
-    place: "Evergreen Brick Works",
-    image: polaroidWedding,
-    alt: "A romantic wedding portrait placeholder photograph."
-  },
-  {
-    names: "The Martins",
-    place: "Scarborough Bluffs",
-    image: polaroidFamily,
-    alt: "A family lifestyle session placeholder photograph."
-  },
-  {
-    names: "Elena & Chris",
-    place: "Osgoode Hall",
-    image: polaroidWedding,
-    alt: "An elegant wedding session placeholder photograph."
-  }
-];
+const portfolioItems = portfolioPreviewItems;
 
 const testimonials = [
   {
-    name: "Maya & Daniel",
-    image: polaroidWedding,
-    alt: "A warm wedding celebration placeholder photograph.",
+    name: "Joses & Susanna",
+    image: testimonialJosesSusanna,
+    alt: "Joses and Susanna portrait session photographed by Sally Gao.",
     quote:
-      "Sally made us feel completely present. The photos feel honest, emotional, and exactly like the day we remember."
+      "[We] had the pleasure of having Sally take photographs for us. She did such a great job directing us, finding the best scenic spots with great lighting, and took absolutely wonderful photos that we can treasure for the years to come. Thank you, Sally!"
   },
   {
-    name: "Ari & Thomas",
-    image: polaroidCouples,
-    alt: "A romantic couples session placeholder photograph.",
+    name: "Camille & Kostiantyn",
+    image: testimonialCamilleKostiantyn,
+    alt: "Camille and Kostiantyn portrait session photographed by Sally Gao.",
     quote:
-      "She caught all the tiny in-between moments we never would have thought to ask for. Every frame feels personal."
+      "Sally's photos are truly captivating! The way she captures light and composition is exceptional. Each photo tells a unique story and evokes such strong emotions. Her talent shines through in every shot. Keep inspiring us with your incredible work!"
   },
   {
-    name: "Leah",
-    image: polaroidSolo,
-    alt: "A soft solo portrait placeholder photograph.",
+    name: "Lois",
+    image: testimonialLois,
+    alt: "Lois portrait session photographed by Sally Gao.",
     quote:
-      "I usually feel awkward in front of a camera, but Sally created such a calm space. The portraits feel like me."
+      "Sally has taken many photographs of myself and my family. She has taken photos of myself at Mint Room Studios, Preto Loft, [Purple Hill] Lavender Farm and [Pringles Farm]. All the photos she took of myself and my family are amazing. I would highly recommend her and her photography services. We all love the photos she took of us."
   },
   {
-    name: "The Chens",
-    image: polaroidFamily,
-    alt: "A relaxed family session placeholder photograph.",
+    name: "Emily & Scott",
+    image: testimonialEmilyScott,
+    alt: "Emily and Scott portrait session photographed by Sally Gao.",
     quote:
-      "Our gallery feels full of life. Nothing looks forced, and somehow she captured everyone's real personality."
+      "Sally was accommodating, friendly and helped in the choice of location. We would definitely recommend her to anyone who's looking for a portrait photographer!"
   }
 ];
 
@@ -133,15 +80,15 @@ const services = [
 
   <main>
     <section class="hero-scroll" data-hero-scroll aria-label="Homepage hero image and introduction">
-      <div class="hero-sticky">
-        <section class="intro" aria-labelledby="homepage-title" data-hero-copy>
+      <div class="hero-sticky" data-hero-stage>
+        <section class="intro" data-hero-copy aria-labelledby="homepage-title">
           <p class="intro-kicker" data-hero-copy-top>based in Toronto, available in the GTA</p>
           <h1 id="homepage-title" class="intro-heading">
             <span class="intro-heading__line intro-heading__line--top" data-hero-title-top>
               Authentic, Heartfelt
             </span>
             <span class="intro-heading__line intro-heading__line--bottom" data-hero-title-bottom>
-              Wedding Photography
+              Portrait Photography
             </span>
           </h1>
           <p class="intro-subtitle" data-hero-copy-bottom>Capturing moments since 2017</p>
@@ -153,7 +100,7 @@ const services = [
             formats={["avif", "webp"]}
             widths={[640, 960, 1280, 1600, 2200]}
             sizes="100vw"
-            alt="A joyful black and white wedding moment shared by a newly married couple and loved ones."
+            alt="A joyful wedding moment shared by a couple."
             loading="eager"
           />
         </div>
@@ -194,11 +141,11 @@ const services = [
       </p>
       <div class="photographer-intro__portrait">
         <Picture
-          src={polaroidSolo}
+          src={photographerImage}
           formats={["avif", "webp"]}
           widths={[320, 480, 640, 840]}
           sizes="(max-width: 560px) 72vw, 30vw"
-          alt="Portrait-style placeholder photograph for Sally Gao."
+          alt="Portrait of Sally Gao."
           loading="lazy"
         />
       </div>

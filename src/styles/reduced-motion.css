@@ -23,6 +23,11 @@
     overflow: visible;
   }
 
+  .intro {
+    position: relative;
+    inset: auto;
+  }
+
   .hero-frame {
     position: relative;
     left: auto;

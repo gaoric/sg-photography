@@ -25,7 +25,7 @@
 .client-gallery-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  grid-template-rows: repeat(4, 75svh);
+  grid-template-rows: repeat(3, 75svh);
   width: 100%;
   background: var(--ivory);
 }

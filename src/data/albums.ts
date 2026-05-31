@@ -1,8 +1,4 @@
 import type { ImageMetadata } from "astro";
-import couplesImage from "../assets/polaroid-couples-placeholder.png";
-import familyImage from "../assets/polaroid-family-placeholder.png";
-import soloImage from "../assets/polaroid-solo-placeholder.png";
-import weddingImage from "../assets/polaroid-wedding-placeholder.png";
 
 export type AlbumService = "Wedding" | "Couple" | "Family" | "Solo";
 
@@ -16,155 +12,164 @@ export interface ClientAlbum {
   names: string;
   service: AlbumService;
   place: string;
+  dateTaken: string;
   cover: ImageMetadata;
   coverAlt: string;
   photos: AlbumPhoto[];
 }
 
-const albumPhotoSets: Record<AlbumService, AlbumPhoto[]> = {
-  Wedding: [
-    { image: weddingImage, alt: "Romantic wedding celebration placeholder photograph." },
-    { image: couplesImage, alt: "Newlyweds walking together placeholder photograph." },
-    { image: weddingImage, alt: "Editorial wedding portrait placeholder photograph." },
-    { image: familyImage, alt: "Wedding family gathering placeholder photograph." },
-    { image: weddingImage, alt: "Quiet wedding detail placeholder photograph." },
-    { image: couplesImage, alt: "Wedding couple embrace placeholder photograph." }
-  ],
-  Couple: [
-    { image: couplesImage, alt: "Natural light couples session placeholder photograph." },
-    { image: soloImage, alt: "Portrait moment during a couples session placeholder photograph." },
-    { image: couplesImage, alt: "Candid couples walk placeholder photograph." },
-    { image: weddingImage, alt: "Romantic outdoor couples placeholder photograph." },
-    { image: couplesImage, alt: "Intimate couples portrait placeholder photograph." },
-    { image: familyImage, alt: "Lifestyle couples session detail placeholder photograph." }
-  ],
-  Family: [
-    { image: familyImage, alt: "Relaxed family lifestyle placeholder photograph." },
-    { image: soloImage, alt: "Child portrait placeholder photograph." },
-    { image: familyImage, alt: "Family walk placeholder photograph." },
-    { image: couplesImage, alt: "Parents portrait placeholder photograph." },
-    { image: familyImage, alt: "Warm family gathering placeholder photograph." },
-    { image: weddingImage, alt: "Family celebration detail placeholder photograph." }
-  ],
-  Solo: [
-    { image: soloImage, alt: "Editorial solo portrait placeholder photograph." },
-    { image: couplesImage, alt: "Environmental solo portrait placeholder photograph." },
-    { image: soloImage, alt: "Soft natural light portrait placeholder photograph." },
-    { image: weddingImage, alt: "Lifestyle portrait detail placeholder photograph." },
-    { image: soloImage, alt: "Quiet solo session placeholder photograph." },
-    { image: familyImage, alt: "Outdoor solo session placeholder photograph." }
-  ]
+interface AlbumIdentity {
+  slug: string;
+  names: string;
+  service: AlbumService;
+}
+
+interface SourceAlbum {
+  folder: string;
+  place: string;
+  dateTaken: string;
+  sortTime: number;
+  photos: ImageMetadata[];
+}
+
+const albumImages = import.meta.glob<{ default: ImageMetadata }>(
+  "../assets/**/*.{jpeg,jpg,png,webp}",
+  { eager: true }
+);
+
+const placeholderIdentities: AlbumIdentity[] = [
+  { slug: "maya-daniel", names: "Maya & Daniel", service: "Wedding" },
+  { slug: "ari-thomas", names: "Ari & Thomas", service: "Couple" },
+  { slug: "leah", names: "Leah", service: "Solo" },
+  { slug: "the-chens", names: "The Chens", service: "Family" },
+  { slug: "nora-sam", names: "Nora & Sam", service: "Couple" },
+  { slug: "isla", names: "Isla", service: "Solo" },
+  { slug: "priya-alex", names: "Priya & Alex", service: "Wedding" },
+  { slug: "the-martins", names: "The Martins", service: "Family" },
+  { slug: "elena-chris", names: "Elena & Chris", service: "Wedding" }
+];
+
+const monthIndexes: Record<string, number> = {
+  jan: 0,
+  january: 0,
+  feb: 1,
+  february: 1,
+  mar: 2,
+  march: 2,
+  apr: 3,
+  april: 3,
+  may: 4,
+  jun: 5,
+  june: 5,
+  jul: 6,
+  july: 6,
+  aug: 7,
+  august: 7,
+  sep: 8,
+  sept: 8,
+  september: 8,
+  oct: 9,
+  october: 9,
+  nov: 10,
+  november: 10,
+  dec: 11,
+  december: 11
 };
 
-// Keep the album list as the source of truth for both index links and static
-// album routes, so adding a future client gallery only requires one data edit.
-export const clientAlbums: ClientAlbum[] = [
-  {
-    slug: "maya-daniel",
-    names: "Maya & Daniel",
-    service: "Wedding",
-    place: "Graydon Hall Manor",
-    cover: weddingImage,
-    coverAlt: "Maya and Daniel wedding album placeholder cover.",
-    photos: albumPhotoSets.Wedding
-  },
-  {
-    slug: "ari-thomas",
-    names: "Ari & Thomas",
-    service: "Couple",
-    place: "Toronto Island",
-    cover: couplesImage,
-    coverAlt: "Ari and Thomas couple album placeholder cover.",
-    photos: albumPhotoSets.Couple
-  },
-  {
-    slug: "leah",
-    names: "Leah",
-    service: "Solo",
-    place: "Trinity Bellwoods",
-    cover: soloImage,
-    coverAlt: "Leah solo album placeholder cover.",
-    photos: albumPhotoSets.Solo
-  },
-  {
-    slug: "the-chens",
-    names: "The Chens",
-    service: "Family",
-    place: "High Park",
-    cover: familyImage,
-    coverAlt: "The Chens family album placeholder cover.",
-    photos: albumPhotoSets.Family
-  },
-  {
-    slug: "nora-sam",
-    names: "Nora & Sam",
-    service: "Couple",
-    place: "Distillery District",
-    cover: couplesImage,
-    coverAlt: "Nora and Sam couple album placeholder cover.",
-    photos: albumPhotoSets.Couple
-  },
-  {
-    slug: "isla",
-    names: "Isla",
-    service: "Solo",
-    place: "The Annex",
-    cover: soloImage,
-    coverAlt: "Isla solo album placeholder cover.",
-    photos: albumPhotoSets.Solo
-  },
-  {
-    slug: "priya-alex",
-    names: "Priya & Alex",
-    service: "Wedding",
-    place: "Evergreen Brick Works",
-    cover: weddingImage,
-    coverAlt: "Priya and Alex wedding album placeholder cover.",
-    photos: albumPhotoSets.Wedding
-  },
-  {
-    slug: "the-martins",
-    names: "The Martins",
-    service: "Family",
-    place: "Scarborough Bluffs",
-    cover: familyImage,
-    coverAlt: "The Martins family album placeholder cover.",
-    photos: albumPhotoSets.Family
-  },
-  {
-    slug: "elena-chris",
-    names: "Elena & Chris",
-    service: "Wedding",
-    place: "Osgoode Hall",
-    cover: weddingImage,
-    coverAlt: "Elena and Chris wedding album placeholder cover.",
-    photos: albumPhotoSets.Wedding
-  },
-  {
-    slug: "serena-miles",
-    names: "Serena & Miles",
-    service: "Couple",
-    place: "Rosedale Valley",
-    cover: couplesImage,
-    coverAlt: "Serena and Miles couple album placeholder cover.",
-    photos: albumPhotoSets.Couple
-  },
-  {
-    slug: "the-patel-family",
-    names: "The Patel Family",
-    service: "Family",
-    place: "Riverdale Farm",
-    cover: familyImage,
-    coverAlt: "The Patel family album placeholder cover.",
-    photos: albumPhotoSets.Family
-  },
-  {
-    slug: "marin",
-    names: "Marin",
-    service: "Solo",
-    place: "Kensington Market",
-    cover: soloImage,
-    coverAlt: "Marin solo album placeholder cover.",
-    photos: albumPhotoSets.Solo
+const seededNumber = (seed: string) => {
+  let hash = 2166136261;
+  for (let index = 0; index < seed.length; index += 1) {
+    hash ^= seed.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
   }
-];
+
+  return hash >>> 0;
+};
+
+const stableShuffle = <T>(items: T[], seed: string) => {
+  const shuffled = [...items];
+  let state = seededNumber(seed);
+
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    state = Math.imul(state ^ (state >>> 15), 1 | state);
+    state ^= state + Math.imul(state ^ (state >>> 7), 61 | state);
+    const swapIndex = ((state ^ (state >>> 14)) >>> 0) % (index + 1);
+    [shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]];
+  }
+
+  return shuffled;
+};
+
+const parseFolder = (folder: string) => {
+  const match = folder.match(/^(.*)\s+\((\w+)\s+(\d{4})\)$/);
+
+  if (!match) {
+    return {
+      place: folder,
+      dateTaken: "",
+      sortTime: 0
+    };
+  }
+
+  const [, place, monthName, year] = match;
+  const monthIndex = monthIndexes[monthName.toLowerCase()] ?? 0;
+  const date = new Date(Number(year), monthIndex, 1);
+
+  return {
+    place,
+    dateTaken: `${year}-${String(monthIndex + 1).padStart(2, "0")}`,
+    sortTime: date.getTime()
+  };
+};
+
+const sourceAlbumsByFolder = Object.entries(albumImages).reduce<Record<string, SourceAlbum>>(
+  (albums, [path, module]) => {
+    const parts = path.replace("../assets/", "").split("/");
+    const [folder] = parts;
+
+    if (!folder || parts.length < 2 || folder === "about" || folder === "home") {
+      return albums;
+    }
+
+    albums[folder] ??= {
+      folder,
+      ...parseFolder(folder),
+      photos: []
+    };
+    albums[folder].photos.push(module.default);
+
+    return albums;
+  },
+  {}
+);
+
+const sourceAlbums = Object.values(sourceAlbumsByFolder).sort((albumA, albumB) => albumB.sortTime - albumA.sortTime);
+
+export const clientAlbums: ClientAlbum[] = sourceAlbums.slice(0, placeholderIdentities.length).map((sourceAlbum, index) => {
+  const identity = placeholderIdentities[index];
+  const selectedImages = stableShuffle(sourceAlbum.photos, `${sourceAlbum.folder}-${sourceAlbum.dateTaken}`).slice(0, 12);
+  const photos = selectedImages.map((image, photoIndex) => ({
+    image,
+    alt: `${identity.names} photographed at ${sourceAlbum.place}, image ${photoIndex + 1}.`
+  }));
+
+  return {
+    ...identity,
+    place: sourceAlbum.place,
+    dateTaken: sourceAlbum.dateTaken,
+    cover: photos[0].image,
+    coverAlt: `${identity.names} album photographed at ${sourceAlbum.place}.`,
+    photos
+  };
+});
+
+export const portfolioPreviewItems = clientAlbums.map((album) => {
+  const photo = stableShuffle(album.photos, `${album.slug}-portfolio`)[0] ?? album.photos[0];
+
+  return {
+    names: album.names,
+    place: album.place,
+    image: photo.image,
+    alt: `${album.names} photographed at ${album.place}.`
+  };
+});

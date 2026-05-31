@@ -1,12 +1,15 @@
 /* Opening editorial hero copy */
 .intro {
-  position: relative;
+  position: absolute;
+  inset: 0;
   z-index: 2;
-  display: grid;
-  grid-template-rows: minmax(0, 1fr) auto minmax(0, 1fr);
-  width: min(1180px, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-inline: auto;
   min-height: 100svh;
-  justify-items: center;
   padding: clamp(86px, 11svh, 118px) 24px;
   text-align: center;
   pointer-events: none;
@@ -28,9 +31,9 @@
 }
 
 .intro-kicker {
-  align-self: end;
   margin-bottom: 24px;
   color: var(--charcoal-soft);
+  will-change: transform, opacity;
 }
 
 .intro h1 {
@@ -56,18 +59,21 @@
 }
 
 .intro-subtitle {
-  align-self: start;
   margin-top: 48px;
   color: var(--charcoal-soft);
+  will-change: transform, opacity;
 }
 
 /* Scroll-scrubbed hero image */
 .hero-scroll {
   position: relative;
-  height: 360svh;
+  height: 420svh;
+  background: var(--ivory);
 }
 
 .hero-sticky {
+  --hero-image-inset: clamp(24px, 4vw, 56px);
+
   position: sticky;
   top: 0;
   display: grid;
@@ -82,8 +88,8 @@
   z-index: 1;
   left: 50%;
   top: 50%;
-  width: min(30vw, 420px);
-  height: min(18vh, 170px);
+  width: min(32vw, 460px);
+  height: min(22svh, 220px);
   overflow: hidden;
   background: var(--ivory-deep);
   transform-origin: center center;
@@ -101,4 +107,8 @@
 .hero-frame img,
 .footer-reveal img {
   object-fit: cover;
+}
+
+.hero-frame img {
+  filter: grayscale(1);
 }
