@@ -1,9 +1,20 @@
 ---
+import { Picture } from "astro:assets";
 import AlbumTileGrid from "../../components/AlbumTileGrid.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
 import SiteNav from "../../components/SiteNav.astro";
 import { clientAlbums } from "../../data/albums";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const dateFormatter = new Intl.DateTimeFormat("en", {
+  month: "long",
+  year: "numeric"
+});
+
+const gallerySlides = clientAlbums.map((album) => ({
+  ...album,
+  displayDate: album.dateTaken ? dateFormatter.format(new Date(`${album.dateTaken}-01T00:00:00`)) : ""
+}));
 ---
 
 <BaseLayout
@@ -13,12 +24,76 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
   <SiteNav />
 
   <main class="client-gallery-page">
-    <section class="client-gallery-heading" aria-labelledby="client-gallery-title">
-      <h1 id="client-gallery-title">Albums</h1>
+    <section class="client-gallery-heading" data-client-gallery-hero aria-labelledby="client-gallery-title">
+      <h1 id="client-gallery-title">Client Gallery</h1>
+
+      <div class="client-gallery-hero__stage" aria-live="polite">
+        {
+          gallerySlides.map((album, index) => (
+            <article
+              class={`client-gallery-slide${index === 0 ? " is-active" : ""}`}
+              data-client-gallery-slide
+              aria-hidden={index === 0 ? "false" : "true"}
+            >
+              <a class="client-gallery-slide__media" href={`/client-gallery/${album.slug}/`}>
+                <Picture
+                  src={album.cover}
+                  formats={["avif", "webp"]}
+                  widths={[480, 640, 820, 1040, 1280]}
+                  sizes="(max-width: 760px) 76vw, min(48vw, 720px)"
+                  alt={album.coverAlt}
+                  loading={index === 0 ? "eager" : "lazy"}
+                />
+              </a>
+
+              <a class="client-gallery-slide__place" href={`/client-gallery/${album.slug}/`}>
+                {album.place}
+              </a>
+
+              <div class="client-gallery-slide__meta">
+                <a href={`/client-gallery/${album.slug}/`}>{album.names}</a>
+                <span>{album.displayDate}</span>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+
+      <div class="client-gallery-hero__thumbs" aria-label="Client gallery slideshow">
+        {
+          gallerySlides.map((album, index) => (
+            <button
+              class={`client-gallery-thumb${index === 0 ? " is-active" : ""}`}
+              type="button"
+              data-client-gallery-thumb
+              data-slide-index={index}
+              aria-label={`Show ${album.names} album`}
+              aria-current={index === 0 ? "true" : "false"}
+            >
+              <Picture
+                src={album.cover}
+                formats={["avif", "webp"]}
+                widths={[80, 120, 180]}
+                sizes="64px"
+                alt=""
+                loading={index < 4 ? "eager" : "lazy"}
+              />
+            </button>
+          ))
+        }
+      </div>
+
+      <a class="client-gallery-view-all" href="#client-gallery-projects">View All Projects</a>
     </section>
 
-    <AlbumTileGrid albums={clientAlbums} />
+    <div id="client-gallery-projects" class="client-gallery-projects">
+      <AlbumTileGrid albums={clientAlbums} />
+    </div>
   </main>
 
   <SiteFooter animated />
+
+  <script>
+    import "../../scripts/client-gallery-slideshow";
+  </script>
 </BaseLayout>
