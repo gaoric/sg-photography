@@ -1,6 +1,12 @@
 node_modules/
+studio/.sanity/
+studio/dist/
 dist/
 .astro/
+.env
+.env.*
+!.env.example
+!studio/.env.example
 .astro-dev.log
 .astro-dev.out.log
 .astro-dev.err.log

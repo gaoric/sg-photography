@@ -1,21 +1,23 @@
 ---
 import logo from "../assets/sg-logo.png";
+import { fallbackSiteSettings } from "../lib/cms/fallback";
+import type { SiteSettings } from "../lib/cms/types";
 
-const links = [
-  { href: "/about/", label: "About" },
-  { href: "/client-gallery/", label: "Client Gallery" },
-  { href: "/contact/", label: "Contact" }
-];
+interface Props {
+  settings?: SiteSettings;
+}
+
+const { settings = fallbackSiteSettings } = Astro.props;
 ---
 
 <header class="site-header" aria-label="Primary navigation">
-  <a class="logo-link" href="/" aria-label="Sally Gao Photography home">
-    <img src={logo.src} width={logo.width} height={logo.height} alt="Sally Gao Photography" />
+  <a class="logo-link" href="/" aria-label={`${settings.businessName} home`}>
+    <img src={logo.src} width={logo.width} height={logo.height} alt={settings.businessName} />
   </a>
 
   <nav class="nav-links" aria-label="Main">
     {
-      links.map((link) => (
+      settings.navLinks.map((link) => (
         <a href={link.href}>
           {link.label}
         </a>

@@ -1,39 +1,36 @@
 ---
-import { Picture } from "astro:assets";
 import AlbumTileGrid from "../../components/AlbumTileGrid.astro";
+import SanityImage from "../../components/SanityImage.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
 import SiteNav from "../../components/SiteNav.astro";
-import { clientAlbums } from "../../data/albums";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getClientAlbums, getSiteSettings } from "../../lib/cms/sanity-content";
 
-export function getStaticPaths() {
+export async function getStaticPaths() {
+  const clientAlbums = await getClientAlbums();
+
   return clientAlbums.map((album) => ({
     params: { slug: album.slug },
-    props: { album }
+    props: { album, clientAlbums }
   }));
 }
 
-const { album } = Astro.props;
+const { album, clientAlbums } = Astro.props;
+const siteSettings = await getSiteSettings();
 const moreAlbums = clientAlbums.filter((clientAlbum) => clientAlbum.slug !== album.slug).slice(0, 8);
+const heroPhoto = album.photos[0]?.image ?? album.cover;
 ---
 
 <BaseLayout
   title={`${album.names} | Sally Gao Photography`}
   description={`${album.service} gallery for ${album.names}, photographed at ${album.place}.`}
 >
-  <SiteNav />
+  <SiteNav settings={siteSettings} />
 
   <main class="album-page">
     <section class="album-cover" data-album-cover aria-labelledby="album-title">
       <div class="album-cover__preview" data-album-cover-preview aria-hidden="true">
-        <Picture
-          src={album.photos[0].image}
-          formats={["avif", "webp"]}
-          widths={[720, 960, 1280, 1600]}
-          sizes="100vw"
-          alt=""
-          loading="eager"
-        />
+        <SanityImage image={heroPhoto} widths={[720, 960, 1280, 1600]} sizes="100vw" loading="eager" />
       </div>
       <div class="album-cover__panel album-cover__panel--top" data-album-cover-top aria-hidden="true">
         <div class="album-cover__content album-cover__content--visual">
@@ -64,16 +61,14 @@ const moreAlbums = clientAlbums.filter((clientAlbum) => clientAlbum.slug !== alb
             type="button"
             data-album-photo
             data-photo-index={index}
-            data-full-src={photo.image.src}
-            data-full-alt={photo.alt}
+            data-full-src={photo.image.source === "sanity" ? photo.image.image.asset?.url : photo.image.image.src}
+            data-full-alt={photo.image.alt}
             aria-label={`Open photo ${index + 1} from ${album.names}`}
           >
-            <Picture
-              src={photo.image}
-              formats={["avif", "webp"]}
+            <SanityImage
+              image={photo.image}
               widths={[360, 540, 720, 960, 1280]}
               sizes="(max-width: 640px) 100vw, 33.333vw"
-              alt={photo.alt}
               loading={index < 3 ? "eager" : "lazy"}
             />
           </button>
@@ -102,7 +97,7 @@ const moreAlbums = clientAlbums.filter((clientAlbum) => clientAlbum.slug !== alb
     </button>
   </div>
 
-  <SiteFooter animated />
+  <SiteFooter settings={siteSettings} animated />
 
   <script>
     import "../../scripts/album-cover-motion";

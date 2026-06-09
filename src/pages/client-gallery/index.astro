@@ -1,10 +1,12 @@
 ---
-import { Picture } from "astro:assets";
 import AlbumTileGrid from "../../components/AlbumTileGrid.astro";
+import SanityImage from "../../components/SanityImage.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
 import SiteNav from "../../components/SiteNav.astro";
-import { clientAlbums } from "../../data/albums";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getClientAlbums, getSiteSettings } from "../../lib/cms/sanity-content";
+
+const [clientAlbums, siteSettings] = await Promise.all([getClientAlbums(), getSiteSettings()]);
 
 const dateFormatter = new Intl.DateTimeFormat("en", {
   month: "long",
@@ -21,7 +23,7 @@ const gallerySlides = clientAlbums.map((album) => ({
   title="Client Gallery | Sally Gao Photography"
   description="Client galleries for Sally Gao Photography sessions in Toronto and the GTA."
 >
-  <SiteNav />
+  <SiteNav settings={siteSettings} />
 
   <main class="client-gallery-page">
     <section class="client-gallery-heading" data-client-gallery-hero aria-labelledby="client-gallery-title">
@@ -36,12 +38,10 @@ const gallerySlides = clientAlbums.map((album) => ({
               aria-hidden={index === 0 ? "false" : "true"}
             >
               <a class="client-gallery-slide__media" href={`/client-gallery/${album.slug}/`}>
-                <Picture
-                  src={album.cover}
-                  formats={["avif", "webp"]}
+                <SanityImage
+                  image={album.cover}
                   widths={[480, 640, 820, 1040, 1280]}
                   sizes="(max-width: 760px) 76vw, min(48vw, 720px)"
-                  alt={album.coverAlt}
                   loading={index === 0 ? "eager" : "lazy"}
                 />
               </a>
@@ -70,14 +70,7 @@ const gallerySlides = clientAlbums.map((album) => ({
               aria-label={`Show ${album.names} album`}
               aria-current={index === 0 ? "true" : "false"}
             >
-              <Picture
-                src={album.cover}
-                formats={["avif", "webp"]}
-                widths={[80, 120, 180]}
-                sizes="64px"
-                alt=""
-                loading={index < 4 ? "eager" : "lazy"}
-              />
+              <SanityImage image={album.cover} widths={[80, 120, 180]} sizes="64px" loading={index < 4 ? "eager" : "lazy"} />
             </button>
           ))
         }
@@ -91,7 +84,7 @@ const gallerySlides = clientAlbums.map((album) => ({
     </div>
   </main>
 
-  <SiteFooter animated />
+  <SiteFooter settings={siteSettings} animated />
 
   <script>
     import "../../scripts/client-gallery-slideshow";
