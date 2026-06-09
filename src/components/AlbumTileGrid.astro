@@ -1,6 +1,6 @@
 ---
-import { Picture } from "astro:assets";
-import type { ClientAlbum } from "../data/albums";
+import SanityImage from "./SanityImage.astro";
+import type { ClientAlbum } from "../lib/cms/types";
 
 interface Props {
   albums: ClientAlbum[];
@@ -15,12 +15,10 @@ const gridClass = columns === 4 ? "client-gallery-grid client-gallery-grid--four
   {
     albums.map((album, index) => (
       <a class={`client-gallery-tile client-gallery-tile--${index + 1}`} href={`/client-gallery/${album.slug}/`}>
-        <Picture
-          src={album.cover}
-          formats={["avif", "webp"]}
+        <SanityImage
+          image={album.cover}
           widths={[360, 540, 720, 960]}
           sizes={columns === 4 ? "(max-width: 860px) 50vw, 25vw" : "(max-width: 640px) 50vw, 33.333vw"}
-          alt={album.coverAlt}
           loading={index < columns ? "eager" : "lazy"}
         />
         <span class="client-gallery-tile__caption" aria-hidden="true">

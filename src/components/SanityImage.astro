@@ -1,0 +1,54 @@
+---
+import { Picture } from "astro:assets";
+import type { SanityImageSource } from "@sanity/image-url";
+import { urlFor } from "../lib/sanity/image";
+import type { CmsImage } from "../lib/cms/types";
+
+interface Props {
+  image: CmsImage;
+  widths: number[];
+  sizes: string;
+  loading?: "eager" | "lazy";
+  class?: string;
+}
+
+const { image, widths, sizes, loading = "lazy", class: className } = Astro.props;
+const sortedWidths = [...widths].sort((widthA, widthB) => widthA - widthB);
+const fallbackWidth = sortedWidths[sortedWidths.length - 1] ?? 1200;
+const alt = image.alt;
+const sanityImage = image.source === "sanity" ? (image.image as SanityImageSource) : undefined;
+
+const sanitySrc =
+  sanityImage ? urlFor(sanityImage).width(fallbackWidth).auto("format").url() : undefined;
+const sanitySrcset =
+  sanityImage
+    ? sortedWidths.map((width) => `${urlFor(sanityImage).width(width).auto("format").url()} ${width}w`).join(", ")
+    : undefined;
+const dimensions = image.source === "sanity" ? image.dimensions : undefined;
+---
+
+{
+  image.source === "local" ? (
+    <Picture
+      src={image.image}
+      formats={["avif", "webp"]}
+      widths={sortedWidths}
+      sizes={sizes}
+      alt={alt}
+      loading={loading}
+      class={className}
+    />
+  ) : (
+    <img
+      src={sanitySrc}
+      srcset={sanitySrcset}
+      sizes={sizes}
+      alt={alt}
+      loading={loading}
+      decoding="async"
+      width={dimensions?.width}
+      height={dimensions?.height}
+      class={className}
+    />
+  )
+}
